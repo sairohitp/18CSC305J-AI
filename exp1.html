@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 <head>
 <style>
 * {
@@ -39,6 +40,57 @@ If all rows have been tried and valid solution is not found return false to trig
 </p>
 <h4>Code</h4>
 <pre>
+=======
+
+<head>
+	<style>
+		* {
+			line-height: 1.5;
+		}
+
+		h2 {
+			text-align: center;
+		}
+
+		body {
+			width: 800px;
+			margin: 0 auto;
+		}
+
+		pre {
+			background-color: #f0f0f0;
+			padding: 10px;
+			border-radius: 5px;
+		}
+
+		footer {
+			display: flex;
+			justify-content: space-between;
+		}
+	</style>
+</head>
+
+<body>
+	<a href="index.html">
+		<h2>18CSC305J - Artificial Intelligence</h2>
+	</a>
+	<h3>Experiment 1 - Implementation of Toy Problem (N Queens)</h3>
+	<h4>Algorithm</h4>
+	<p>
+		Start in the leftmost column<br>
+		If all queens are placed return true<br>
+		Try all rows in the current column. Do the following for every row.<br>
+		If the queen can be placed safely in this row<br>
+		Then mark this [row, column] as part of the solution and recursively check if placing queen here leads to a
+		solution.<br>
+		If placing the queen in [row, column] leads to a solution then return true.<br>
+		If placing queen doesn’t lead to a solution then unmark this [row, column] then backtrack and try other
+		rows.<br>
+		If all rows have been tried and valid solution is not found return false to trigger backtracking.<br>
+	</p>
+	<h4>Code</h4>
+	<pre>
+>>>>>>> origin/main
 # Python3 program to solve N Queen
 # Problem using backtracking
 
@@ -141,16 +193,32 @@ if __name__ == '__main__':
 	solveNQ()
 </pre>
 
+<<<<<<< HEAD
 <h4>Output</h4>
 <pre>
+=======
+	<h4>Output</h4>
+	<pre>
+>>>>>>> origin/main
 . . Q . 
 Q . . . 
 . . . Q 
 . Q . . 
 </pre>
+<<<<<<< HEAD
 <footer>
 <div></div>
 <div><a href = "exp2.html"><p>Experiment 2&rarr;</p></a></div>
 </footer>
 </body>
+=======
+	<footer>
+		<div></div>
+		<div><a href="exp2.html">
+				<p>Experiment 2&rarr;</p>
+			</a></div>
+	</footer>
+</body>
+
+>>>>>>> origin/main
 </html>

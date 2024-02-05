@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<a href="index.html">
+		<h2>18CSC305J - Artificial Intelligence</h2>
+	</a>
+	<h3>Experiment 3 - Implementation of Constraint Satisfaction Problem</h3>
+	<h4>Manual Procedure</h4>
+	<ol>
+<li>From Column 5, M=1, since it is only carry-over possible from sum of 2 single digit number in column 4.</li>
+<li>To produce a carry from column 4 to column 5 'S + M' is atleast 9 so 'S=8or9' so 'S+M=9or10' & so 'O = 0 or 1'. But 'M=1', so 'O = 0'.</li>
+<li>If there is carry from Column 3 to 4 then 'E=9' & so 'N=0'. But 'O = 0' so there is no carry & 'S=9' & 'c3=0'.</li>
+<li>If there is no carry from column 2 to 3 then 'E=N' which is impossible, therefore there is carry & 'N=E+1' & 'c2=1'.</li>
+<li>If there is carry from column 1 to 2 then 'N+R=E mod 10' & 'N=E+1' so 'E+1+R=E mod 10', so 'R=9' but 'S=9', so there must be carry from column 1 to 2. Therefore 'c1=1' & 'R=8'.</li>
+<li>To produce carry 'c1=1' from column 1 to 2, we must have 'D+E=10+Y' as Y cannot be 0/1 so D+E is atleast 12. As D is atmost 7 & E is atleast 5 (D cannot be 8 or 9 as it is already assigned). N is atmost 7 & 'N=E+1' so 'E=5or6'.</li>
+<li>If E were 6 & D+E atleast 12 then D would be 7, but 'N=E+1' & N would also be 7 which is impossible. Therefore 'E=5' & 'N=6'.</li>
+<li>D+E is atleast 12 for that we get 'D=7' & 'Y=2'.</li>
+	</ol>
+	<h4>Code</h4>
+	<pre>
+import itertools
+
+def get_value(word, substitution):
+	s = 0
+	factor = 1
+	for letter in reversed(word):
+		s += factor * substitution[letter]
+		factor *= 10
+	return s
+
+def solve2(equation):
+	left, right = equation.lower().replace(' ', '').split('=')
+	left = left.split('+')
+	letters = set(right)
+	for word in left:
+		for letter in word:
+			letters.add(letter)
+	letters = list(letters)
+
+	digits = range(10)
+	for perm in itertools.permutations(digits, len(letters)):
+		sol = dict(zip(letters, perm))
+
+		if sum(get_value(word, sol) for word in left) == get_value(right, sol):
+			print(' + '.join(str(get_value(word, sol)) for word in left) + " = {} (mapping: {})".format(get_value(right, sol), sol))
+</pre>
+<pre>
+print('EAT + THAT = APPLE ')
+solve2('POINT + ZERO = ENERGY ')
+</pre>
+	<h4>Output</h4>
+	<pre>
+EAT + THAT = APPLE 
+38549 + 2068 = 40617 (mapping: {'z': 2, 'g': 1, 't': 9, 'n': 4, 'r': 6, 'p': 3, 'i': 5, 'o': 8, 'e': 0, 'y': 7})
+58369 + 2048 = 60417 (mapping: {'z': 2, 'g': 1, 't': 9, 'n': 6, 'r': 4, 'p': 5, 'i': 3, 'o': 8, 'e': 0, 'y': 7})
+98504 + 3168 = 101672 (mapping: {'z': 3, 'g': 7, 't': 4, 'n': 0, 'r': 6, 'p': 9, 'i': 5, 'o': 8, 'e': 1, 'y': 2})
+24735 + 6084 = 30819 (mapping: {'z': 6, 'g': 1, 't': 5, 'n': 3, 'r': 8, 'p': 2, 'i': 7, 'o': 4, 'e': 0, 'y': 9})
+74285 + 6034 = 80319 (mapping: {'z': 6, 'g': 1, 't': 5, 'n': 8, 'r': 3, 'p': 7, 'i': 2, 'o': 4, 'e': 0, 'y': 9})
+42659 + 8072 = 50731 (mapping: {'z': 8, 'g': 3, 't': 9, 'n': 5, 'r': 7, 'p': 4, 'i': 6, 'o': 2, 'e': 0, 'y': 1})
+62479 + 8052 = 70531 (mapping: {'z': 8, 'g': 3, 't': 9, 'n': 7, 'r': 5, 'p': 6, 'i': 4, 'o': 2, 'e': 0, 'y': 1})
+31745 + 9081 = 40826 (mapping: {'z': 9, 'g': 2, 't': 5, 'n': 4, 'r': 8, 'p': 3, 'i': 7, 'o': 1, 'e': 0, 'y': 6})
+71385 + 9041 = 80426 (mapping: {'z': 9, 'g': 2, 't': 5, 'n': 8, 'r': 4, 'p': 7, 'i': 3, 'o': 1, 'e': 0, 'y': 6})
+51762 + 9081 = 60843 (mapping: {'z': 9, 'g': 4, 't': 2, 'n': 6, 'r': 8, 'p': 5, 'i': 7, 'o': 1, 'e': 0, 'y': 3})
+71582 + 9061 = 80643 (mapping: {'z': 9, 'g': 4, 't': 2, 'n': 8, 'r': 6, 'p': 7, 'i': 5, 'o': 1, 'e': 0, 'y': 3})
+</pre>
+	<footer>
+		<div><a href="exp2.html">
+				<p>&larr; Experiment 2</p>
+			</a></div>
+		<div><a href="exp4.html">
+				<p>Experiment 4 &rarr;</p>
+			</a></div>
+	</footer>
+</body>
+
+</html>
